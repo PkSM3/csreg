@@ -22,7 +22,7 @@ class ConfigClass(object):
 	MAIL_USE_SSL =		int(os.getenv('MAIL_USE_SSL',		 True))
 
 	# Flask-User settings
-	USER_APP_NAME		= "AppName"				# Used by email templates
+	USER_APP_NAME		= "CommunityExplorer.org"				# Used by email templates
 
 
 def create_app():
