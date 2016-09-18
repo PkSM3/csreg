@@ -3,6 +3,7 @@ from flask import Flask, render_template_string
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
+import json
 
 
 # Use a Class-based config to avoid needing a 2nd file
@@ -13,9 +14,13 @@ class ConfigClass(object):
 	SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',	 'sqlite:///basic_app.sqlite')
 	CSRF_ENABLED = True
 
-	# Flask-Mail settings
-	MAIL_USERNAME =		   os.getenv('MAIL_USERNAME',		'chabela1941@gmail.com')
-	MAIL_PASSWORD =		   os.getenv('MAIL_PASSWORD',		'agrimensorpedromora')
+
+
+	with open("credentials.json") as data_file:    
+		C = json.load(data_file)
+	
+	MAIL_USERNAME =		   os.getenv('MAIL_USERNAME',		C["mail"])
+	MAIL_PASSWORD =		   os.getenv('MAIL_PASSWORD',		C["pass"])
 	MAIL_DEFAULT_SENDER =	 os.getenv('MAIL_DEFAULT_SENDER',  '"Complex Systems Registry" <kaislean@gmail.com>')
 	MAIL_SERVER =			 os.getenv('MAIL_SERVER',		  'smtp.gmail.com')
 	MAIL_PORT =		   int(os.getenv('MAIL_PORT',			'465'))
@@ -23,6 +28,12 @@ class ConfigClass(object):
 
 	# Flask-User settings
 	USER_APP_NAME		= "CommunityExplorer.org"				# Used by email templates
+
+	def get_credentials( self , filename):
+		f = open( filename , "r" )
+		C = json.load( f )
+		f.close()
+		return C
 
 
 def create_app():
