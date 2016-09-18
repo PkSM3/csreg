@@ -91,7 +91,11 @@ def create_app():
 	return app
 
 
-# Start development web server
-if __name__=='__main__':
-	app = create_app()
-	app.run(host='0.0.0.0', port=5000, debug=True)
+# # Start development web server
+# if __name__=='__main__':
+#	app = create_app()
+#	app.run(host='0.0.0.0', port=5000, debug=True)
+
+app = create_app()
+from reverseproxy import ReverseProxied
+app.wsgi_app = ReverseProxied(app.wsgi_app)
