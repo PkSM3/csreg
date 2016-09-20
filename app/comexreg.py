@@ -6,6 +6,7 @@ from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
 import json
 import logging
 from logging.handlers import RotatingFileHandler
+from flask.ext.runner import Runner
 
 # Use a Class-based config to avoid needing a 2nd file
 # os.getenv() enables configuration through OS environment variables
@@ -37,6 +38,7 @@ def create_app():
 	# Setup Flask app and app.config
 	app = Flask(__name__)
 	app.config.from_object(__name__+'.ConfigClass')
+	runner = Runner(app)
 
 	# Initialize Flask extensions
 	db = SQLAlchemy(app)							# Initialize Flask-SQLAlchemy
@@ -104,7 +106,7 @@ def create_app():
 			{% endblock %}
 			""")
 
-	return app
+	return app , runner
 
 
 # # Start development web server
@@ -112,6 +114,12 @@ def create_app():
 # 	app = create_app()
 # 	app.run(host='0.0.0.0', port=5000, debug=True)
 
-app = create_app()
-from reverseproxy import ReverseProxied
+#app = create_app()
+#from reverseproxy import ReverseProxied
+#app.wsgi_app = ReverseProxied(app.wsgi_app)
+
+
+app , runner = create_app()
+from reversal import ReverseProxied
 app.wsgi_app = ReverseProxied(app.wsgi_app)
+runner.run()
