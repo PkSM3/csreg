@@ -69,11 +69,11 @@ def create_app():
 	# The Home page is accessible to anyone
 	@app.route('/')
 	def home_page():
-		print
-		print "homepage()"
-		print "homepage:","\t",url_for('home_page')
-		print "memberspage:","\t",url_for('members_page')
-		print
+		app.logger.error("")
+		app.logger.error("homepage()"
+		app.logger.error("homepage:"+"\t"+url_for('home_page'))
+		app.logger.error("memberspage:"+"\t"+url_for('members_page'))
+		app.logger.error("")
 		return render_template_string("""
 			{% extends "base.html" %}
 			{% block content %}
@@ -88,11 +88,11 @@ def create_app():
 	@app.route('/members')
 	@login_required								 # Use of @login_required decorator
 	def members_page():
-		print
-		print "memberspage()"
-		print "homepage:","\t",url_for('home_page')
-		print "memberspage:","\t",url_for('members_page')
-		print
+		app.logger.error("")
+		app.logger.error("memberspage()"
+		app.logger.error("homepage:"+"\t"+url_for('home_page'))
+		app.logger.error("memberspage:"+"\t"+url_for('members_page'))
+		app.logger.error("")
 		return render_template_string("""
 			{% extends "base.html" %}
 			{% block content %}
