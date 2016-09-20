@@ -71,7 +71,7 @@ def create_app():
 	@app.route('/')
 	def home_page():
 		app.logger.error("")
-		app.logger.error("homepage()"
+		app.logger.error("homepage()")
 		app.logger.error("homepage:"+"\t"+url_for('home_page'))
 		app.logger.error("memberspage:"+"\t"+url_for('members_page'))
 		app.logger.error("")
@@ -90,7 +90,7 @@ def create_app():
 	@login_required								 # Use of @login_required decorator
 	def members_page():
 		app.logger.error("")
-		app.logger.error("memberspage()"
+		app.logger.error("memberspage()")
 		app.logger.error("homepage:"+"\t"+url_for('home_page'))
 		app.logger.error("memberspage:"+"\t"+url_for('members_page'))
 		app.logger.error("")
