@@ -29,12 +29,6 @@ class ConfigClass(object):
 	# Flask-User settings
 	USER_APP_NAME		= "CommunityExplorer.org"				# Used by email templates
 
-	def get_credentials( self , filename):
-		f = open( filename , "r" )
-		C = json.load( f )
-		f.close()
-		return C
-
 
 def create_app():
 	""" Flask application factory """
@@ -42,6 +36,7 @@ def create_app():
 	# Setup Flask app and app.config
 	app = Flask(__name__)
 	app.config.from_object(__name__+'.ConfigClass')
+	app.logger_name = "comexreg.app"
 
 	# Initialize Flask extensions
 	db = SQLAlchemy(app)							# Initialize Flask-SQLAlchemy
@@ -102,11 +97,11 @@ def create_app():
 	return app
 
 
- # Start development web server
-if __name__=='__main__':
-	app = create_app()
-	app.run(host='0.0.0.0', port=5000, debug=True)
+# # Start development web server
+# if __name__=='__main__':
+# 	app = create_app()
+# 	app.run(host='0.0.0.0', port=5000, debug=True)
 
-#app = create_app()
-#from reverseproxy import ReverseProxied
-#app.wsgi_app = ReverseProxied(app.wsgi_app)
+app = create_app()
+from reverseproxy import ReverseProxied
+app.wsgi_app = ReverseProxied(app.wsgi_app)
