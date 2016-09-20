@@ -70,11 +70,11 @@ def create_app():
 	# The Home page is accessible to anyone
 	@app.route('/')
 	def home_page():
-		app.logger.debug("")
-		app.logger.debug("homepage()")
-		app.logger.debug("homepage:"+"\t"+url_for('home_page'))
-		app.logger.debug("memberspage:"+"\t"+url_for('members_page'))
-		app.logger.debug("")
+		app.logger.error("")
+		app.logger.error("homepage()")
+		app.logger.error("homepage:"+"\t"+url_for('home_page'))
+		app.logger.error("memberspage:"+"\t"+url_for('members_page'))
+		app.logger.error("")
 		return render_template_string("""
 			{% extends "base.html" %}
 			{% block content %}
@@ -89,11 +89,11 @@ def create_app():
 	@app.route('/members')
 	@login_required								 # Use of @login_required decorator
 	def members_page():
-		app.logger.debug("")
-		app.logger.debug("memberspage()")
-		app.logger.debug("homepage:"+"\t"+url_for('home_page'))
-		app.logger.debug("memberspage:"+"\t"+url_for('members_page'))
-		app.logger.debug("")
+		app.logger.error("")
+		app.logger.error("memberspage()")
+		app.logger.error("homepage:"+"\t"+url_for('home_page'))
+		app.logger.error("memberspage:"+"\t"+url_for('members_page'))
+		app.logger.error("")
 		return render_template_string("""
 			{% extends "base.html" %}
 			{% block content %}
