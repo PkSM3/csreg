@@ -36,7 +36,6 @@ def create_app():
 	# Setup Flask app and app.config
 	app = Flask(__name__)
 	app.config.from_object(__name__+'.ConfigClass')
-	app.logger_name = "comexreg.app"
 
 	# Initialize Flask extensions
 	db = SQLAlchemy(app)							# Initialize Flask-SQLAlchemy
@@ -70,6 +69,11 @@ def create_app():
 	# The Home page is accessible to anyone
 	@app.route('/')
 	def home_page():
+		print
+		print "homepage()"
+		print "homepage:","\t",url_for('home_page')
+		print "memberspage:","\t",url_for('members_page')
+		print
 		return render_template_string("""
 			{% extends "base.html" %}
 			{% block content %}
@@ -84,6 +88,11 @@ def create_app():
 	@app.route('/members')
 	@login_required								 # Use of @login_required decorator
 	def members_page():
+		print
+		print "memberspage()"
+		print "homepage:","\t",url_for('home_page')
+		print "memberspage:","\t",url_for('members_page')
+		print
 		return render_template_string("""
 			{% extends "base.html" %}
 			{% block content %}
